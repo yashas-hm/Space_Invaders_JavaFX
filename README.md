@@ -1,5 +1,5 @@
 # Space Invaders Game
-Simple JavaFx Game
+Simple JavaFx Game<br>
 Space invaders is a popular arcade game
 
 ## Controls
