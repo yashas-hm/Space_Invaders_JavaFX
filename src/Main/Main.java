@@ -40,6 +40,7 @@ public class Main extends Application {
     private AnimationTimer timer;
     private double time = 0;
     private boolean gameOver = false;
+    private boolean isPaused = false;
     private final Label scoreText = new Label("Score: "+score);
     private final Label highScoreText = new Label("HighScore: "+highScore);
     private double speed = 0.7;
@@ -82,6 +83,7 @@ public class Main extends Application {
         time = 0;
         speed = 0.7;
         gameOver = false;
+        isPaused = false;
 
         try{
             FileInputStream fin = new FileInputStream("SpaceInvaders_HighScore.txt");
@@ -190,10 +192,12 @@ public class Main extends Application {
                     gameObject.moveUp();
                     gameObjects().stream().filter(filter -> filter.type.equals("Enemy")).forEach(enemy -> {
                         if (gameObject.getBoundsInParent().intersects(enemy.getBoundsInParent())) {
-                            enemy.isExploding = true;
-                            enemy.blast();
-                            score += 1;
-                            gameObject.dead = true;
+                            if(!enemy.isExploding){
+                                enemy.isExploding = true;
+                                enemy.blast();
+                                score += 1;
+                                gameObject.dead = true;
+                            }
                         }
                     });
                     break;
@@ -243,7 +247,7 @@ public class Main extends Application {
 
     private void gameOver() {
         timer.stop();
-        Label label = new Label("GAME OVER\n Score: " + score+"\n click HERE to restart");
+        Label label = new Label("GAME OVER\n Score: " + score+"\n Press R to restart");
         label.setFont(new Font(50));
         label.setTextFill(Color.CORAL);
         label.setTextAlignment(TextAlignment.CENTER);
@@ -293,12 +297,7 @@ public class Main extends Application {
         scene.setFill(Color.grayRgb(20));
         scene.setCursor(Cursor.DEFAULT);
         scene.setOnMouseMoved(e -> player.setXAxis(e.getX()));
-        scene.setOnMouseClicked(e -> {
-            if(gameOver)
-                run(stage);
-            else
-                shoot(player);
-        });
+        scene.setOnMouseClicked(e -> shoot(player));
 
         scene.setOnKeyPressed(event -> {
             switch (event.getCode()) {
@@ -312,10 +311,17 @@ public class Main extends Application {
                     shoot(player);
                     break;
                 case P:
-                    timer.stop();
+                    if(isPaused){
+                        isPaused = false;
+                        timer.start();
+                    }else{
+                        timer.stop();
+                        isPaused = true;
+                    }
                     break;
                 case R:
-                    timer.start();
+                    if(gameOver)
+                        run(stage);
                     break;
             }
         });

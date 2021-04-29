@@ -4,9 +4,10 @@ Space invaders is a popular arcade game
 
 ## Controls
   - Mouse or arrow keys to move right or left
-  - Mouse click or spacebar to shoot bullets
-  - P for pause
-  - R for resume
+  - Mouse click or spaceBar to shoot bullets
+  - P for pause/play
+  - R for restart
+
 ## ScreenShots
 <p>
 <img src ="https://github.com/yashas-hm/Space_Invaders_JavaFX/blob/master/images/1.JPG" width="300">
@@ -17,3 +18,6 @@ Space invaders is a popular arcade game
 &nbsp
 <img src ="https://github.com/yashas-hm/Space_Invaders_JavaFX/blob/master/images/4.png" width="300">
 </p>
+
+## Important Note
+If you are cloning this project, please change directory variable to the path you where you have installed the project
