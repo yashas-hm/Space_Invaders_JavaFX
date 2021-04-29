@@ -30,9 +30,6 @@ import java.util.stream.Collectors;
 */
 
 public class Main extends Application {
-    public static void main(String[] args) {
-        launch(args);
-    }
 
     private Pane root;
     private Pane pane;
@@ -47,19 +44,34 @@ public class Main extends Application {
     private final Label highScoreText = new Label("HighScore: "+highScore);
     private double speed = 0.7;
 
+    // change directory to where your project is stored
+    static final String directory = "D:\\Programming\\JAVA\\";
+
+    // do not change this
+    static final String projectDirectory = "Space_Invaders_JavaFX\\src\\Main\\images\\";
+
     static final Image PLAYER_IMG =
-            new Image("file:D:\\Programming\\JAVA\\Space Invaders\\src\\Main\\images\\player.png");
+            new Image("file:"+directory+projectDirectory+"player.png");
     static final Image BULLET_IMG
-            = new Image("file:D:\\Programming\\JAVA\\Space Invaders\\src\\Main\\images\\bullet.png");
+            = new Image("file:"+directory+projectDirectory+"bullet.png");
 
     static final Image[] ENEMY_IMAGES = {
-            new Image("file:D:\\Programming\\JAVA\\Space Invaders\\src\\Main\\images\\ufo_0.png"),
-            new Image("file:D:\\Programming\\JAVA\\Space Invaders\\src\\Main\\images\\ufo_1.png"),
-            new Image("file:D:\\Programming\\JAVA\\Space Invaders\\src\\Main\\images\\ufo_2.png"),
-            new Image("file:D:\\Programming\\JAVA\\Space Invaders\\src\\Main\\images\\ufo_3.png"),
-            new Image("file:D:\\Programming\\JAVA\\Space Invaders\\src\\Main\\images\\ufo_4.png"),
-            new Image("file:D:\\Programming\\JAVA\\Space Invaders\\src\\Main\\images\\ufo_5.png"),
+            new Image("file:"+directory+projectDirectory+"ufo_0.png"),
+            new Image("file:"+directory+projectDirectory+"ufo_1.png"),
+            new Image("file:"+directory+projectDirectory+"ufo_2.png"),
+            new Image("file:"+directory+projectDirectory+"ufo_3.png"),
+            new Image("file:"+directory+projectDirectory+"ufo_4.png"),
+            new Image("file:"+directory+projectDirectory+"ufo_5.png"),
     };
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage stage) {
+        run(stage);
+    }
 
     private void initiate(){
         root = new Pane();
@@ -68,6 +80,7 @@ public class Main extends Application {
         player = new GameObject(250, 700, 60, 60, "Player", PLAYER_IMG, speed);
         score = 0;
         time = 0;
+        speed = 0.7;
         gameOver = false;
 
         try{
@@ -134,14 +147,14 @@ public class Main extends Application {
         t.schedule(new TimerTask(){
             @Override
             public void run() {
+                speed+=0.1;
                 root.getChildren().forEach(obj -> {
                     GameObject object = (GameObject) obj;
                     if(object.type.equals("Enemy"))
-                        speed+=0.1;
                         object.speed=speed;
                 });
             }
-        }, 8000);
+        }, 0,8000);
     }
 
     private void createStarBG(){
@@ -310,12 +323,7 @@ public class Main extends Application {
         increaseSpeed();
 
         stage.setScene(scene);
-        stage.setTitle("Space Invaders");
+        stage.setTitle("Space_Invaders_JavaFX");
         stage.show();
-    }
-
-    @Override
-    public void start(Stage stage) {
-        run(stage);
     }
 }

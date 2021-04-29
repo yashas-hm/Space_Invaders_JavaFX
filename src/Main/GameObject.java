@@ -14,22 +14,28 @@ public class GameObject extends Rectangle {
     boolean isExploding = false;
     double speed;
 
+    // change directory to where your project is stored
+    static final String directory = "D:\\Programming\\JAVA\\";
+
+    // do not change this
+    static final String projectDirectory = "Space_Invaders_JavaFX\\src\\Main\\images\\";
+    
     private static final Image[] images = {
-            new Image("file:D:\\Programming\\JAVA\\Space Invaders\\src\\Main\\images\\explosion_0.png"),
-            new Image("file:D:\\Programming\\JAVA\\Space Invaders\\src\\Main\\images\\explosion_1.png"),
-            new Image("file:D:\\Programming\\JAVA\\Space Invaders\\src\\Main\\images\\explosion_2.png"),
-            new Image("file:D:\\Programming\\JAVA\\Space Invaders\\src\\Main\\images\\explosion_3.png"),
-            new Image("file:D:\\Programming\\JAVA\\Space Invaders\\src\\Main\\images\\explosion_4.png"),
-            new Image("file:D:\\Programming\\JAVA\\Space Invaders\\src\\Main\\images\\explosion_5.png"),
-            new Image("file:D:\\Programming\\JAVA\\Space Invaders\\src\\Main\\images\\explosion_6.png"),
-            new Image("file:D:\\Programming\\JAVA\\Space Invaders\\src\\Main\\images\\explosion_7.png"),
-            new Image("file:D:\\Programming\\JAVA\\Space Invaders\\src\\Main\\images\\explosion_8.png"),
-            new Image("file:D:\\Programming\\JAVA\\Space Invaders\\src\\Main\\images\\explosion_9.png"),
-            new Image("file:D:\\Programming\\JAVA\\Space Invaders\\src\\Main\\images\\explosion_10.png"),
-            new Image("file:D:\\Programming\\JAVA\\Space Invaders\\src\\Main\\images\\explosion_11.png"),
-            new Image("file:D:\\Programming\\JAVA\\Space Invaders\\src\\Main\\images\\explosion_12.png"),
-            new Image("file:D:\\Programming\\JAVA\\Space Invaders\\src\\Main\\images\\explosion_13.png"),
-            new Image("file:D:\\Programming\\JAVA\\Space Invaders\\src\\Main\\images\\explosion_14.png"),
+            new Image("file:"+directory+projectDirectory+"explosion_0.png"),
+            new Image("file:"+directory+projectDirectory+"explosion_1.png"),
+            new Image("file:"+directory+projectDirectory+"explosion_2.png"),
+            new Image("file:"+directory+projectDirectory+"explosion_3.png"),
+            new Image("file:"+directory+projectDirectory+"explosion_4.png"),
+            new Image("file:"+directory+projectDirectory+"explosion_5.png"),
+            new Image("file:"+directory+projectDirectory+"explosion_6.png"),
+            new Image("file:"+directory+projectDirectory+"explosion_7.png"),
+            new Image("file:"+directory+projectDirectory+"explosion_8.png"),
+            new Image("file:"+directory+projectDirectory+"explosion_9.png"),
+            new Image("file:"+directory+projectDirectory+"explosion_10.png"),
+            new Image("file:"+directory+projectDirectory+"explosion_11.png"),
+            new Image("file:"+directory+projectDirectory+"explosion_12.png"),
+            new Image("file:"+directory+projectDirectory+"explosion_13.png"),
+            new Image("file:"+directory+projectDirectory+"explosion_14.png"),
     };
 
     GameObject(int x, int y, int w, int h, String type, Image image, double speed) {
