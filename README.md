@@ -10,13 +10,15 @@ Space invaders is a popular arcade game
 
 ## ScreenShots
 <p>
-<img src ="https://github.com/yashas-hm/Space_Invaders_JavaFX/blob/master/ScreenShots/1.jpg" width="300">
-&nbsp
-<img src ="https://github.com/yashas-hm/Space_Invaders_JavaFX/blob/master/ScreenShots/2.jpg" width="300">
-&nbsp
-<img src ="https://github.com/yashas-hm/Space_Invaders_JavaFX/blob/master/ScreenShots/3.jpg" width="300">
-&nbsp
-<img src ="https://github.com/yashas-hm/Space_Invaders_JavaFX/blob/master/ScreenShots/4.jpg" width="300">
+  <img src ="https://github.com/yashas-hm/Space_Invaders_JavaFX/blob/master/ScreenShots/5.jpg" width="300">
+  &nbsp
+  <img src ="https://github.com/yashas-hm/Space_Invaders_JavaFX/blob/master/ScreenShots/1.jpg" width="300">
+  &nbsp
+  <img src ="https://github.com/yashas-hm/Space_Invaders_JavaFX/blob/master/ScreenShots/2.jpg" width="300">
+  &nbsp
+  <img src ="https://github.com/yashas-hm/Space_Invaders_JavaFX/blob/master/ScreenShots/3.jpg" width="300">
+  &nbsp
+  <img src ="https://github.com/yashas-hm/Space_Invaders_JavaFX/blob/master/ScreenShots/4.jpg" width="300">
 </p>
 
 ## Important Note
