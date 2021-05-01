@@ -7,20 +7,21 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import javafx.scene.shape.Rectangle;
 
 import java.io.*;
 import java.util.List;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.stream.Collectors;
 
 /*
@@ -71,14 +72,14 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
-        run(stage);
+        startUp(stage);
     }
 
     private void initiate(){
         root = new Pane();
         pane = new Pane();
         stackPane = new StackPane();
-        player = new GameObject(250, 700, 60, 60, "Player", PLAYER_IMG, speed);
+        player = new GameObject(250, 700, 60, 60, "Player", PLAYER_IMG, speed, 0);
         score = 0;
         time = 0;
         speed = 0.7;
@@ -98,6 +99,43 @@ public class Main extends Application {
             score = 0;
             System.out.println(""+e);
         }
+    }
+
+    private Parent createMainMenu(){
+        stackPane.setPrefSize(600, 800);
+        stackPane.maxHeight(800);
+        stackPane.maxWidth(600);
+        stackPane.minHeight(800);
+        stackPane.minHeight(600);
+
+        pane.setPrefSize(600, 800);
+        pane.setBackground(new Background(new BackgroundFill(Color.grayRgb(20), null, null)));
+
+        createStarBG();
+
+        AnimationTimer timer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                stars().forEach(star->star.moveDown());
+                time+=0.016;
+
+                if(time>0.5){
+                    time=0;
+                    createStarBG();
+                }
+
+                pane.getChildren().removeIf(star-> {
+                    Stars stars = (Stars) star;
+                    return stars.dead;
+                });
+            }
+        };
+
+        timer.start();
+
+        stackPane.getChildren().add(pane);
+
+        return stackPane;
     }
 
     private Parent createContent() {
@@ -144,21 +182,6 @@ public class Main extends Application {
         return stackPane;
     }
 
-    private void increaseSpeed(){
-        Timer t = new Timer();
-        t.schedule(new TimerTask(){
-            @Override
-            public void run() {
-                speed+=0.1;
-                root.getChildren().forEach(obj -> {
-                    GameObject object = (GameObject) obj;
-                    if(object.type.equals("Enemy"))
-                        object.speed=speed;
-                });
-            }
-        }, 0,8000);
-    }
-
     private void createStarBG(){
         Random rand = new Random();
         for(int i = 0;i<60;i++){
@@ -170,7 +193,6 @@ public class Main extends Application {
     private List<Stars> stars() {
         return pane.getChildren().stream().map(n -> (Stars) n).collect(Collectors.toList());
     }
-
 
     private void update() {
         scoreText.setText("Score: "+score);
@@ -195,7 +217,7 @@ public class Main extends Application {
                             if(!enemy.isExploding){
                                 enemy.isExploding = true;
                                 enemy.blast();
-                                score += 1;
+                                score += enemy.score;
                                 gameObject.dead = true;
                             }
                         }
@@ -234,19 +256,19 @@ public class Main extends Application {
         for (int i = 0; i < 10; i++) {
             GameObject enemy = new GameObject(
                     rand.nextInt(500-20),
-                    rand.nextInt(160-100),
+                    rand.nextInt(10),
                     40,
                     40,
                     "Enemy",
                     ENEMY_IMAGES[rand.nextInt(5)],
-                    speed
+                    speed,
+                    rand.nextInt(6-1)
             );
             root.getChildren().add(enemy);
         }
     }
 
     private void gameOver() {
-        timer.stop();
         Label label = new Label("GAME OVER\n Score: " + score+"\n Press R to restart");
         label.setFont(new Font(50));
         label.setTextFill(Color.CORAL);
@@ -285,10 +307,53 @@ public class Main extends Application {
                     20,
                     player.type + "Bullet",
                     BULLET_IMG,
-                    speed
+                    speed,
+                    0
             );
             root.getChildren().add(bullet);
         }
+    }
+
+    private void startUp(Stage stage){
+        initiate();
+
+        Scene scene = new Scene(createMainMenu());
+
+        scene.setCursor(Cursor.DEFAULT);
+
+        scene.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.S) {
+                run(stage);
+            }
+        });
+
+        Label label = new Label("Press S to start:" +
+                "\nControls given below" +
+                "\n↓" +
+                "\n\n" +
+                "P -> Pause/Unpause\n" +
+                "R->Restart when Game Over\n" +
+                "Mouse/Arrow Keys-> Move right or left\n" +
+                "Mouse click/SpaceBar-> Shoot");
+        label.setFont(new Font(30));
+        label.setTextFill(Color.CORAL);
+        label.setTextAlignment(TextAlignment.CENTER);
+
+        Rectangle rectangle = new Rectangle();
+        rectangle.setWidth(100);
+        rectangle.setHeight(100);
+        rectangle.setTranslateX(0);
+        rectangle.setTranslateY(-320);
+        rectangle.setFill(new ImagePattern(PLAYER_IMG));
+
+        stackPane.getChildren().add(rectangle);
+
+        stackPane.getChildren().add(label);
+
+        stage.setScene(scene);
+        stage.setTitle("Space_Invaders_JavaFX");
+        stage.show();
+
     }
 
     private void run(Stage stage){
@@ -325,8 +390,6 @@ public class Main extends Application {
                     break;
             }
         });
-
-        increaseSpeed();
 
         stage.setScene(scene);
         stage.setTitle("Space_Invaders_JavaFX");

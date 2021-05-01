@@ -13,6 +13,7 @@ public class GameObject extends Rectangle {
     ImagePattern imagePattern;
     boolean isExploding = false;
     double speed;
+    final int score;
 
     // change directory to where your project is stored
     static final String directory = "D:\\Programming\\JAVA\\";
@@ -38,13 +39,14 @@ public class GameObject extends Rectangle {
             new Image("file:"+directory+projectDirectory+"explosion_14.png"),
     };
 
-    GameObject(int x, int y, int w, int h, String type, Image image, double speed) {
+    GameObject(int x, int y, int w, int h, String type, Image image, double speed, int score) {
         super(w, h, Color.TRANSPARENT);
         imagePattern = new ImagePattern(image);
         super.setFill(imagePattern);
-        this.type = type;
         setTranslateX(x);
         setTranslateY(y);
+        this.type = type;
+        this.score = score;
         this.speed = speed;
     }
 
