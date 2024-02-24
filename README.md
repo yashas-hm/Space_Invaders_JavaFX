@@ -1,4 +1,4 @@
-# 🚀 Space Invaders Game
+# 👾 Space Invaders Game
 
 Embark on an exciting journey through space with this simple JavaFx game! Space Invaders, a beloved arcade classic, comes to life on your screen, offering endless hours of entertainment.
 
